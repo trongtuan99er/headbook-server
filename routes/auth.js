@@ -1,8 +1,11 @@
 import express from "express";
 import { login, register, logout  } from '../controllers/authController.js'
+import { validateRegister, validateLogin } from "../middlewares/userValidator.js";
+
 const router = express.Router()
 
-router.post('login', login)
-router.post('register', register)
-router.post('logout', logout)
+router.post('/login',validateLogin, login)
+router.post('/register',validateRegister, register)
+router.post('/logout', logout)
+
 export default router
