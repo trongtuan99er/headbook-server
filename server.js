@@ -6,6 +6,7 @@ import postRoutes from './routes/posts.js'
 import likeRoutes from './routes/likes.js'
 import authRoutes from './routes/auth.js'
 import commentRoutes from './routes/comments.js'
+import relationshipRoutes from './routes/relationships.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
@@ -29,6 +30,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/likes', likeRoutes)
 app.use('/api/comments', commentRoutes)
+app.use('/api/relationships', relationshipRoutes)
 
 app.listen(port, () => {
   console.log(`server start at port: ${port}`);
