@@ -10,9 +10,9 @@ export const getPosts = (req, res) => {
     if(err) return res.status(403).json("token sai")
     const userId = req.query.userId
 
-    const q = userId !== 'undefined' ? `SELECT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ? ORDER BY p.createdAt DESC` :  `SELECT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) LEFT JOIN relationships AS r ON (p.userId = r.followedUserId) WHERE r.followerUserId = ? OR p.userId = ? ORDER BY p.createdAt DESC`
+    const q = userId !== 'undefined' ? `SELECT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ? ORDER BY p.createdAt DESC` :  `SELECT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) ORDER BY p.createdAt DESC`
     
-    const values = userId !== 'undefined' ? [userId] : [data.id, data.id]
+    const values = userId !== 'undefined' ? [userId] : []
     db.query(q,values,(err, data) => {
       if(err) return res.status(500).json(err)
       return res.status(200).json(data)
