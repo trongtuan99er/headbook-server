@@ -11,7 +11,8 @@ export const getLikes = (req, res) => {
 }
 
 export const addLike = (req, res) => {
-  const token = req.cookies.accessToken
+  const authHeader = req.headers.token
+  const token = authHeader.split(" ")[1];
   if(!token) return res.status(400).json("Chưa đăng nhập!")
 
   jwt.verify(token, process.env.SECRET_KEY, (err, data) => {
@@ -29,7 +30,8 @@ export const addLike = (req, res) => {
 }
 
 export const deleteLike = (req, res) => {
-  const token = req.cookies.accessToken
+  const authHeader = req.headers.token
+  const token = authHeader.split(" ")[1];
   if(!token) return res.status(400).json("Chưa đăng nhập!")
 
   jwt.verify(token, process.env.SECRET_KEY, (err, data) => {

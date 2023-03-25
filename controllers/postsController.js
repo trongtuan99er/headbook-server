@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken'
 import moment from 'moment/moment.js'
 
 export const getPosts = (req, res) => {
-  const token = req.cookies.accessToken
+  const authHeader = req.headers.token
+  const token = authHeader.split(" ")[1];
   if(!token) return res.status(400).json("Chưa đăng nhập!")
   jwt.verify(token, process.env.SECRET_KEY, (err, data) => {
     if(err) return res.status(403).json("token sai")
@@ -20,7 +21,8 @@ export const getPosts = (req, res) => {
 }
 
 export const addPost = (req, res) => {
-  const token = req.cookies.accessToken
+  const authHeader = req.headers.token
+  const token = authHeader.split(" ")[1];
   if(!token) return res.status(400).json("Chưa đăng nhập!")
 
   jwt.verify(token, process.env.SECRET_KEY, (err, data) => {
@@ -41,7 +43,8 @@ export const addPost = (req, res) => {
 }
 
 export const deletePost = (req, res) => {
-  const token = req.cookies.accessToken
+  const authHeader = req.headers.token
+  const token = authHeader.split(" ")[1];
   if(!token) return res.status(400).json("Chưa đăng nhập!")
 
   jwt.verify(token, process.env.SECRET_KEY, (err, data) => {

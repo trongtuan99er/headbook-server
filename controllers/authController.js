@@ -38,14 +38,9 @@ export const login = (req,res) => {
     const token = jwt.sign({id: data[0].id}, process.env.SECRET_KEY, {expiresIn: '1d'})
 
     const { password, ...info} = data[0]
-    res.cookie("accessToken", token, {
-      httpOnly: true
-    }).status(200).json(info)
+    res.status(200).json({...info, token})
   })
 }
 export const logout = (req,res) => {
-  res.clearCookie("accessToken", {
-    secure: true,
-    sameSite: "none"
-  }).status(200).json("Đã đăng xuất!")
+  res.status(200).json("Đã đăng xuất!")
 }
